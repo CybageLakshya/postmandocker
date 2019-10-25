@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  apitesting:
+    image: cfautomationtest
+    container_name: cfautomationtest
+    build: 
+        context: src/
+        dockerfile: test.Dockerfile
+    command:
+      run https://www.getpostman.com/collections/bd9af4efe8967ccdc9ff
+      -e ./postman/env.json
+      -d ./postman/data2V.json
+    networks:
+      - cordfinance-automation
+    expose:
+      - "80"
+  
+networks:
+  cordfinance-automation:
+    driver: bridge
